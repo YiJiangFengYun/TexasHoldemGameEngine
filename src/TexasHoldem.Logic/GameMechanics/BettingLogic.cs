@@ -1,5 +1,6 @@
-namespace TexasHoldem.Logic.GameMechanics
+﻿namespace TexasHoldem.Logic.GameMechanics
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -87,10 +88,18 @@ namespace TexasHoldem.Logic.GameMechanics
 
                 if (!player.PlayerMoney.InHand || !player.PlayerMoney.ShouldPlayInRound)
                 {
-                    if (player.PlayerMoney.InHand == player.PlayerMoney.ShouldPlayInRound)
+                    // //Why?
+                    // if (player.PlayerMoney.InHand == player.PlayerMoney.ShouldPlayInRound)
+                    // {
+                    //     playerIndex++;
+                    // }
+
+                    if (player.PlayerMoney.InHand != player.PlayerMoney.ShouldPlayInRound)
                     {
-                        playerIndex++;
+                        //Error!!
+                        Console.Error.WriteLine("Error when Bet!!!");
                     }
+                    playerIndex++;
 
                     continue;
                 }
