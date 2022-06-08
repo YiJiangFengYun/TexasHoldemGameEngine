@@ -43,7 +43,7 @@
                 list.Add(new ConsoleUiDecorator(Players[i], (6 * i) + NumberOfCommonRows, GameWidth, 1));
             }
 
-            return new TexasHoldemGame(list);
+            return new TexasHoldemGame(list, loopHands: true);
         }
 
         private static void Table(int gameHeight)

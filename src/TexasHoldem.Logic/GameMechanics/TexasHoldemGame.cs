@@ -9,10 +9,12 @@
     {
         private readonly int smallBlind;
 
+        private readonly bool loopHands;
+
         private readonly ICollection<InternalPlayer> allPlayers;
 
-        public TexasHoldemGame(IPlayer firstPlayer, IPlayer secondPlayer, int smallBlind = 1)
-            : this(new[] { firstPlayer, secondPlayer }, smallBlind)
+        public TexasHoldemGame(IPlayer firstPlayer, IPlayer secondPlayer, int smallBlind = 1, bool loopHands = false)
+            : this(new[] { firstPlayer, secondPlayer }, smallBlind, loopHands)
         {
             if (firstPlayer == null)
             {
@@ -31,8 +33,8 @@
             }
         }
 
-        public TexasHoldemGame(IList<IPlayer> players, int smallBlind = 1)
-            : this((ICollection<IPlayer>)players, smallBlind)
+        public TexasHoldemGame(IList<IPlayer> players, int smallBlind = 1, bool loopHands = false)
+            : this((ICollection<IPlayer>)players, smallBlind, loopHands)
         {
             // Ensure the players have unique names
             var duplicateNames = players.GroupBy(x => x)
@@ -45,14 +47,15 @@
             }
         }
 
-        public TexasHoldemGame(int smallBlind = 1)
-            : this(null, smallBlind)
+        public TexasHoldemGame(int smallBlind = 1, bool loopHands = false)
+            : this(null, smallBlind, loopHands)
         {
         }
 
-        private TexasHoldemGame(ICollection<IPlayer> players, int smallBlind = 1)
+        private TexasHoldemGame(ICollection<IPlayer> players, int smallBlind = 1, bool loopHands = false)
         {
             this.smallBlind = smallBlind;
+            this.loopHands = loopHands;
             // if (players == null)
             // {
             //     throw new ArgumentNullException(nameof(players));
@@ -117,6 +120,7 @@
 
                 hand.Play();
 
+                if (! loopHands) break;
             }
         }
     }
