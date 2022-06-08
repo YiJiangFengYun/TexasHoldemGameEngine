@@ -5,20 +5,14 @@
     using System.Linq;
 
     using TexasHoldem.Logic.Players;
-
     public class TexasHoldemGame : ITexasHoldemGame
     {
-        protected static readonly int[] SmallBlinds =
-            {
-                1, 2, 3, 5, 10, 15, 20, 25, 30, 40, 50, 60, 80, 100, 150, 200, 300,
-                400, 500, 600, 800, 1000, 1500, 2000, 3000, 4000, 5000, 6000, 8000,
-                10000, 15000, 20000, 30000, 40000, 50000, 60000, 80000, 100000,
-            };
+        private readonly int smallBlind;
 
         private readonly ICollection<InternalPlayer> allPlayers;
 
-        public TexasHoldemGame(IPlayer firstPlayer, IPlayer secondPlayer)
-            : this(new[] { firstPlayer, secondPlayer })
+        public TexasHoldemGame(IPlayer firstPlayer, IPlayer secondPlayer, int smallBlind = 1)
+            : this(new[] { firstPlayer, secondPlayer }, smallBlind)
         {
             if (firstPlayer == null)
             {
@@ -37,8 +31,8 @@
             }
         }
 
-        public TexasHoldemGame(IList<IPlayer> players)
-            : this((ICollection<IPlayer>)players)
+        public TexasHoldemGame(IList<IPlayer> players, int smallBlind = 1)
+            : this((ICollection<IPlayer>)players, smallBlind)
         {
             // Ensure the players have unique names
             var duplicateNames = players.GroupBy(x => x)
@@ -51,22 +45,33 @@
             }
         }
 
-        private TexasHoldemGame(ICollection<IPlayer> players)
+        public TexasHoldemGame(int smallBlind = 1)
+            : this(null, smallBlind)
         {
-            if (players == null)
-            {
-                throw new ArgumentNullException(nameof(players));
-            }
+        }
 
-            if (players.Count < 2 || players.Count > 10)
-            {
-                throw new ArgumentOutOfRangeException(nameof(players), "The number of players must be from 2 to 10");
-            }
+        private TexasHoldemGame(ICollection<IPlayer> players, int smallBlind = 1)
+        {
+            this.smallBlind = smallBlind;
+            // if (players == null)
+            // {
+            //     throw new ArgumentNullException(nameof(players));
+            // }
 
-            this.allPlayers = new List<InternalPlayer>(players.Count);
-            foreach (var item in players)
+            // if (players.Count < 2 || players.Count > 10)
+            // {
+            //     throw new ArgumentOutOfRangeException(nameof(players), "The number of players must be from 2 to 10");
+            // }
+
+            var count = players != null ? players.Count : 0;
+
+            this.allPlayers = new List<InternalPlayer>(count);
+            if (count > 0)
             {
-                this.allPlayers.Add(new InternalPlayer(item));
+                foreach (var item in players)
+                {
+                    this.allPlayers.Add(new InternalPlayer(item));
+                }
             }
 
             this.HandsPlayed = 0;
@@ -101,10 +106,6 @@
             while (this.allPlayers.WithMoney().Count() > 1)
             {
                 this.HandsPlayed++;
-
-                // Every 10 hands the blind increases
-                // var smallBlind = SmallBlinds[(this.HandsPlayed - 1) / 10];
-                var smallBlind = SmallBlinds[0];
 
                 // Players are shifted in order of priority to make a move
                 shifted = shifted.WithMoney().ToList();
