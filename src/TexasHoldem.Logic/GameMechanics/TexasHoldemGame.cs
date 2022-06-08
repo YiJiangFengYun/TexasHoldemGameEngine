@@ -136,7 +136,7 @@
 
                 hand.Play();
 
-                this.Rebuy();
+                // this.Rebuy();
             }
         }
     }
