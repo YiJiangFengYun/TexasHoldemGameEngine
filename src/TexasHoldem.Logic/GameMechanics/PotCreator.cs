@@ -3,6 +3,8 @@
     using System.Collections.Generic;
     using System.Linq;
 
+    using TexasHoldem.Logic.Pots;
+
     internal class PotCreator
     {
         private IList<InternalPlayer> players;

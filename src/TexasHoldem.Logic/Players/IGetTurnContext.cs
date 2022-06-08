@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    using TexasHoldem.Logic.GameMechanics;
+    using TexasHoldem.Logic.Pots;
 
     public interface IGetTurnContext
     {

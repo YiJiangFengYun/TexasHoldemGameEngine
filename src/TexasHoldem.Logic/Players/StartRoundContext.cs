@@ -3,7 +3,7 @@
     using System.Collections.Generic;
 
     using TexasHoldem.Logic.Cards;
-    using TexasHoldem.Logic.GameMechanics;
+    using TexasHoldem.Logic.Pots;
 
     public class StartRoundContext : IStartRoundContext
     {

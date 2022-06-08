@@ -1,4 +1,4 @@
-﻿namespace TexasHoldem.Logic.GameMechanics
+﻿namespace TexasHoldem.Logic.Pots
 {
     using System.Collections.Generic;
 

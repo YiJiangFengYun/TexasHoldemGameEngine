@@ -1,9 +1,10 @@
-﻿namespace TexasHoldem.Logic.GameMechanics
+namespace TexasHoldem.Logic.GameMechanics
 {
     using System.Collections.Generic;
     using System.Linq;
 
     using TexasHoldem.Logic.Players;
+    using TexasHoldem.Logic.Pots;
 
     internal class BettingLogic
     {

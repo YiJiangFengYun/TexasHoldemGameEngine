@@ -7,7 +7,11 @@
     using TexasHoldem.Logic.Cards;
     using TexasHoldem.Logic.Helpers;
     using TexasHoldem.Logic.Players;
+    using TexasHoldem.Logic.Pots;
 
+    /**
+    * Hand: 一局牌，一手牌
+    */
     internal class HandLogic : IHandLogic
     {
         private readonly int handNumber;
