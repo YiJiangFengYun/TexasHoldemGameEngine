@@ -8,15 +8,14 @@
     {
         private readonly int row;
 
-        public ConsolePlayer(int row, int buyIn = -1)
+        public ConsolePlayer(int row, int money = 1000)
         {
             this.row = row;
-            this.BuyIn = buyIn;
+            this.money = money;
         }
 
         public override string Name { get; } = "ConsolePlayer_" + Guid.NewGuid();
 
-        public override int BuyIn { get; }
 
         public override PlayerAction PostingBlind(IPostingBlindContext context)
         {

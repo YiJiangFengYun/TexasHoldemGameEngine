@@ -6,15 +6,31 @@
 
     public class InternalPlayerMoney
     {
-        public InternalPlayerMoney(int startMoney)
+        public InternalPlayerMoney(IPlayer player)
         {
-            this.Money = startMoney;
+            this.player = player;
             this.NewHand();
             this.NewRound();
         }
 
+        public InternalPlayerMoney(int money)
+        {
+            this.money = money;
+            this.NewHand();
+            this.NewRound();
+        }
+
+        private IPlayer player;
+        private int money;
+
         // Player money in the game
-        public int Money { get; set; }
+        public int Money 
+        { 
+            get { return this.player != null ? player.Money : money; } 
+            set { if (this.player != null) player.Money = value;
+                  else money = value; 
+            } 
+        }
 
         // The amount of money the player is currently put in the pot
         public int CurrentlyInPot { get; private set; }

@@ -20,7 +20,7 @@
 
         public override void StartGame(IStartGameContext context)
         {
-            this.PlayerMoney = new InternalPlayerMoney(context.StartMoney);
+            this.PlayerMoney = new InternalPlayerMoney(this.Player);
             base.StartGame(context);
         }
 

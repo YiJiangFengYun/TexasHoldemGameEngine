@@ -4,7 +4,7 @@
     {
         string Name { get; }
 
-        int BuyIn { get; }
+        int Money { get; set; }
 
         void StartGame(IStartGameContext context);
 

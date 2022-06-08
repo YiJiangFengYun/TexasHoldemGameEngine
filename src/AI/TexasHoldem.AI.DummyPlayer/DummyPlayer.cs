@@ -7,9 +7,13 @@
 
     public class DummyPlayer : BasePlayer
     {
-        public override string Name { get; } = "DummyPlayer_" + Guid.NewGuid();
 
-        public override int BuyIn { get; } = -1;
+        public DummyPlayer()
+        {
+            this.money = 1000;
+        }
+
+        public override string Name { get; } = "DummyPlayer_" + Guid.NewGuid();
 
         public override PlayerAction PostingBlind(IPostingBlindContext context)
         {

@@ -5,7 +5,5 @@
     public interface IStartGameContext
     {
         IReadOnlyCollection<string> PlayerNames { get; }
-
-        int StartMoney { get; }
     }
 }

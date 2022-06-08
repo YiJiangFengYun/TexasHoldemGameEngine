@@ -6,9 +6,12 @@
 
     internal class AlwaysCallDummyPlayer : BasePlayer
     {
-        public override string Name { get; } = "AlwaysCallDummyPlayer_" + Guid.NewGuid();
+        public AlwaysCallDummyPlayer()
+        {
+            this.money = 1000;
+        }
 
-        public override int BuyIn { get; } = -1;
+        public override string Name { get; } = "AlwaysCallDummyPlayer_" + Guid.NewGuid();
 
         public override PlayerAction PostingBlind(IPostingBlindContext context)
         {

@@ -9,7 +9,17 @@
 
         public virtual string Name => this.Player.Name;
 
-        public int BuyIn => this.Player.BuyIn;
+        public virtual int Money 
+        {
+            get 
+            {
+                return Player.Money;
+            }
+            set
+            {
+                Player.Money = value;
+            }
+        }
 
         protected IPlayer Player { get; }
 

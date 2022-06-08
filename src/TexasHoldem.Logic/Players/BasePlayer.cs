@@ -8,7 +8,8 @@
     {
         public abstract string Name { get; }
 
-        public abstract int BuyIn { get; }
+        protected int money = 0;
+        public virtual int Money { get => money; set => money = value; }
 
         protected IReadOnlyCollection<Card> CommunityCards { get; private set; }
 

@@ -17,10 +17,8 @@
 
         private readonly ICollection<InternalPlayer> allPlayers;
 
-        private int initialMoney;
-
-        public TexasHoldemGame(IPlayer firstPlayer, IPlayer secondPlayer, int initialMoney = 1000)
-            : this(new[] { firstPlayer, secondPlayer }, initialMoney)
+        public TexasHoldemGame(IPlayer firstPlayer, IPlayer secondPlayer)
+            : this(new[] { firstPlayer, secondPlayer })
         {
             if (firstPlayer == null)
             {
@@ -39,8 +37,8 @@
             }
         }
 
-        public TexasHoldemGame(IList<IPlayer> players, int initialMoney = 200)
-            : this((ICollection<IPlayer>)players, initialMoney)
+        public TexasHoldemGame(IList<IPlayer> players)
+            : this((ICollection<IPlayer>)players)
         {
             // Ensure the players have unique names
             var duplicateNames = players.GroupBy(x => x)
@@ -53,7 +51,7 @@
             }
         }
 
-        private TexasHoldemGame(ICollection<IPlayer> players, int initialMoney = 1000)
+        private TexasHoldemGame(ICollection<IPlayer> players)
         {
             if (players == null)
             {
@@ -65,18 +63,12 @@
                 throw new ArgumentOutOfRangeException(nameof(players), "The number of players must be from 2 to 10");
             }
 
-            if (initialMoney <= 0 || initialMoney > 200000)
-            {
-                throw new ArgumentOutOfRangeException(nameof(initialMoney), "Initial money should be greater than 0 and less than 200000");
-            }
-
             this.allPlayers = new List<InternalPlayer>(players.Count);
             foreach (var item in players)
             {
                 this.allPlayers.Add(new InternalPlayer(item));
             }
 
-            this.initialMoney = initialMoney;
             this.HandsPlayed = 0;
         }
 
@@ -87,7 +79,7 @@
             var playerNames = this.allPlayers.Select(x => x.Name).ToList().AsReadOnly();
             foreach (var player in this.allPlayers)
             {
-                player.StartGame(new StartGameContext(playerNames, player.BuyIn == -1 ? this.initialMoney : player.BuyIn));
+                player.StartGame(new StartGameContext(playerNames));
             }
 
             this.PlayGame();
@@ -99,18 +91,6 @@
             }
 
             return winner;
-        }
-
-        private void Rebuy()
-        {
-            var playerNames = this.allPlayers.Select(x => x.Name).ToList().AsReadOnly();
-            foreach (var player in this.allPlayers)
-            {
-                if (player.PlayerMoney.Money <= 0)
-                {
-                    player.StartGame(new StartGameContext(playerNames, player.BuyIn == -1 ? this.initialMoney : player.BuyIn));
-                }
-            }
         }
 
         private void PlayGame()
@@ -136,7 +116,6 @@
 
                 hand.Play();
 
-                // this.Rebuy();
             }
         }
     }
